@@ -42,7 +42,8 @@
             this.txt_Grade2 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txt_GradeAvg = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.datagrid = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Surname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Class = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,7 +56,15 @@
             this.btn_Add = new System.Windows.Forms.Button();
             this.btn_Update = new System.Windows.Forms.Button();
             this.btn_Delete = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.lblSituation = new System.Windows.Forms.Label();
+            this.btn_List = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.txtFilter = new System.Windows.Forms.TextBox();
+            this.btn_ListByFilter = new System.Windows.Forms.Button();
+            this.rdBigger = new System.Windows.Forms.RadioButton();
+            this.rdSmaller = new System.Windows.Forms.RadioButton();
+            ((System.ComponentModel.ISupportInitialize)(this.datagrid)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbl_Name
@@ -170,10 +179,11 @@
             this.txt_GradeAvg.Size = new System.Drawing.Size(287, 22);
             this.txt_GradeAvg.TabIndex = 1;
             // 
-            // dataGridView1
+            // datagrid
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.datagrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.datagrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
             this.Name,
             this.Surname,
             this.Class,
@@ -181,12 +191,20 @@
             this.Grade1,
             this.Grade2,
             this.GradeAvg});
-            this.dataGridView1.Location = new System.Drawing.Point(538, 37);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(913, 308);
-            this.dataGridView1.TabIndex = 2;
+            this.datagrid.Location = new System.Drawing.Point(538, 37);
+            this.datagrid.Name = "datagrid";
+            this.datagrid.RowHeadersWidth = 51;
+            this.datagrid.RowTemplate.Height = 24;
+            this.datagrid.Size = new System.Drawing.Size(913, 308);
+            this.datagrid.TabIndex = 2;
+            this.datagrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagrid_CellContentClick);
+            // 
+            // ID
+            // 
+            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ID.HeaderText = "ID";
+            this.ID.MinimumWidth = 6;
+            this.ID.Name = "ID";
             // 
             // Name
             // 
@@ -258,42 +276,117 @@
             // 
             // btn_Add
             // 
-            this.btn_Add.Location = new System.Drawing.Point(72, 398);
+            this.btn_Add.Location = new System.Drawing.Point(72, 420);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(154, 44);
             this.btn_Add.TabIndex = 5;
             this.btn_Add.Text = "Add Student";
             this.btn_Add.UseVisualStyleBackColor = true;
+            this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
             // btn_Update
             // 
-            this.btn_Update.Location = new System.Drawing.Point(244, 398);
+            this.btn_Update.Location = new System.Drawing.Point(242, 420);
             this.btn_Update.Name = "btn_Update";
             this.btn_Update.Size = new System.Drawing.Size(154, 44);
             this.btn_Update.TabIndex = 6;
             this.btn_Update.Text = "Update Student";
             this.btn_Update.UseVisualStyleBackColor = true;
+            this.btn_Update.Click += new System.EventHandler(this.btn_Update_Click);
             // 
             // btn_Delete
             // 
-            this.btn_Delete.Location = new System.Drawing.Point(419, 398);
+            this.btn_Delete.Location = new System.Drawing.Point(413, 420);
             this.btn_Delete.Name = "btn_Delete";
             this.btn_Delete.Size = new System.Drawing.Size(154, 44);
             this.btn_Delete.TabIndex = 7;
             this.btn_Delete.Text = "Delete Student";
             this.btn_Delete.UseVisualStyleBackColor = true;
+            this.btn_Delete.Click += new System.EventHandler(this.btn_Delete_Click);
+            // 
+            // lblSituation
+            // 
+            this.lblSituation.AutoSize = true;
+            this.lblSituation.Location = new System.Drawing.Point(24, 361);
+            this.lblSituation.Name = "lblSituation";
+            this.lblSituation.Size = new System.Drawing.Size(44, 16);
+            this.lblSituation.TabIndex = 8;
+            this.lblSituation.Text = "label7";
+            // 
+            // btn_List
+            // 
+            this.btn_List.Location = new System.Drawing.Point(1297, 374);
+            this.btn_List.Name = "btn_List";
+            this.btn_List.Size = new System.Drawing.Size(154, 44);
+            this.btn_List.TabIndex = 9;
+            this.btn_List.Text = "List Students";
+            this.btn_List.UseVisualStyleBackColor = true;
+            this.btn_List.Click += new System.EventHandler(this.btn_List_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.rdSmaller);
+            this.panel1.Controls.Add(this.rdBigger);
+            this.panel1.Controls.Add(this.btn_ListByFilter);
+            this.panel1.Controls.Add(this.txtFilter);
+            this.panel1.Location = new System.Drawing.Point(812, 420);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(306, 179);
+            this.panel1.TabIndex = 10;
+            // 
+            // txtFilter
+            // 
+            this.txtFilter.Location = new System.Drawing.Point(27, 22);
+            this.txtFilter.Name = "txtFilter";
+            this.txtFilter.Size = new System.Drawing.Size(258, 22);
+            this.txtFilter.TabIndex = 0;
+            // 
+            // btn_ListByFilter
+            // 
+            this.btn_ListByFilter.Location = new System.Drawing.Point(107, 102);
+            this.btn_ListByFilter.Name = "btn_ListByFilter";
+            this.btn_ListByFilter.Size = new System.Drawing.Size(91, 38);
+            this.btn_ListByFilter.TabIndex = 1;
+            this.btn_ListByFilter.Text = "List By Filter";
+            this.btn_ListByFilter.UseVisualStyleBackColor = true;
+            this.btn_ListByFilter.Click += new System.EventHandler(this.btn_ListByFilter_Click);
+            // 
+            // rdBigger
+            // 
+            this.rdBigger.AutoSize = true;
+            this.rdBigger.Location = new System.Drawing.Point(64, 50);
+            this.rdBigger.Name = "rdBigger";
+            this.rdBigger.Size = new System.Drawing.Size(125, 20);
+            this.rdBigger.TabIndex = 2;
+            this.rdBigger.TabStop = true;
+            this.rdBigger.Text = "List the Big ones";
+            this.rdBigger.UseVisualStyleBackColor = true;
+            // 
+            // rdSmaller
+            // 
+            this.rdSmaller.AutoSize = true;
+            this.rdSmaller.Location = new System.Drawing.Point(64, 76);
+            this.rdSmaller.Name = "rdSmaller";
+            this.rdSmaller.Size = new System.Drawing.Size(134, 20);
+            this.rdSmaller.TabIndex = 3;
+            this.rdSmaller.TabStop = true;
+            this.rdSmaller.Text = "List the Little Ones";
+            this.rdSmaller.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1480, 512);
+            this.ClientSize = new System.Drawing.Size(1480, 700);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.btn_List);
+            this.Controls.Add(this.lblSituation);
             this.Controls.Add(this.btn_Delete);
             this.Controls.Add(this.btn_Update);
             this.Controls.Add(this.btn_Add);
             this.Controls.Add(this.lblIDSeen);
             this.Controls.Add(this.lblID);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.datagrid);
             this.Controls.Add(this.txt_GradeAvg);
             this.Controls.Add(this.txt_Grade2);
             this.Controls.Add(this.txt_Grade1);
@@ -308,9 +401,11 @@
             this.Controls.Add(this.txt_Surname);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbl_Name);
-            this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.datagrid)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -332,7 +427,14 @@
         private System.Windows.Forms.TextBox txt_Grade2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txt_GradeAvg;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView datagrid;
+        private System.Windows.Forms.Label lblID;
+        private System.Windows.Forms.Label lblIDSeen;
+        private System.Windows.Forms.Button btn_Add;
+        private System.Windows.Forms.Button btn_Update;
+        private System.Windows.Forms.Button btn_Delete;
+        private System.Windows.Forms.Label lblSituation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn Surname;
         private System.Windows.Forms.DataGridViewTextBoxColumn Class;
@@ -340,11 +442,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Grade1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Grade2;
         private System.Windows.Forms.DataGridViewTextBoxColumn GradeAvg;
-        private System.Windows.Forms.Label lblID;
-        private System.Windows.Forms.Label lblIDSeen;
-        private System.Windows.Forms.Button btn_Add;
-        private System.Windows.Forms.Button btn_Update;
-        private System.Windows.Forms.Button btn_Delete;
+        private System.Windows.Forms.Button btn_List;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.RadioButton rdSmaller;
+        private System.Windows.Forms.RadioButton rdBigger;
+        private System.Windows.Forms.Button btn_ListByFilter;
+        private System.Windows.Forms.TextBox txtFilter;
     }
 }
 
